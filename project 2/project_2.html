@@ -1,0 +1,15 @@
+<html>
+	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script> var data;
+			$.get('temperature_copenhagen.txt', function(d){
+				data = d;
+			}); 
+		</script>
+		
+		<script src="https://d3js.org/d3.v4.js"></script>
+		
+		<title>D3 Page Template</title>
+		<div id="foo"></div>
+	</body>
+</html>
