@@ -32,6 +32,7 @@ $.get('temperature_copenhagen.txt', function(d){
 	var w = 1000;
 	var h = 1000;
 	var svgTwo = d3.select('body')
+			  .select('#Results')
 			  .append('svg')
 			  .attr('width', w)
 			  .attr('height', h);

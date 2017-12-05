@@ -12,6 +12,7 @@ function init() {
 	function(error, data) {
 		if (error) throw error;
 		var svgOne = d3.select('body')
+					.select('#Results')
 					.select('svg');
 		var margin = {top: 10, right: 10, bottom: 10, left: 50};
 		var width = 1200

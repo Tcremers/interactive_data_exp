@@ -1,36 +1,219 @@
-<html>
-	<head>
-		
-	</head>
-		
-	<body>
-		<svg style="width:100%;
-				height:100%;
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Assignment 2</title>   <!--Name that appears on the slip of the new window -->
+
+    <h1 class="headerTitle" align="center" style="font-size:40px; color:yellow">    Assignment 2 </h1>
+    <h3 class="headerTitle" align="center" style="font-size:20px; color:yellow">    by Tycho Canter and Jesus Torresano </h3>
+
+    <style>
+
+        #code_tsv_csv {
+            width:100%;
+            height:100%;
+            border: 4px solid blue;
+            text-align: left;
+        }
+
+    </style>
+
+
+</head>
+
+
+
+<body style="background-image: url(http://www.petervaldivia.com/technology/Computer-graphics/image/gimp/sun-rise/image1-a.jpg)">
+
+<div id="Motivation">
+    <br/>
+    <br/>
+<h1 align="center"> <em>Motivation</em> </h1>
+<p style="font-size:20px; vertical-align: middle; text-align: center;"> It is a common topic nowadays to find controversy
+    regarding whether there is climate change or not. <br/>
+    For the ones that do not know and according to <a href="https://www.nasa.gov/audience/forstudents/k-4/stories/nasa-knows/what-is-climate-change-k4.html">nasa.com</a>, "<strong> climate change </strong> is <em> a change in the usual weather found in a place. </em> <br/>
+    This could be a change in a place's usual temperature for a month or season.  <br/>
+    Or it could be a change in how much rain a place usually gets in a year etc.". <br/>  <br/>
+    Disregarding of the different opinions that are hold concerning this topic <br/>
+    (people in favour, people against and people that do not care), it can be observed that something out of the normal <br/>
+    is happening in <strong> our planet </strong>. <br/>
+    It is our duty, as global citizens, to explore objective datasets in order to check if climate change is true <br/>
+    and if so, investigate the consequences. <br/>
+</p>
+
+</div>
+<br/>
+<br/>
+
+<div style="vertical-align: middle;">
+<img class="irc_mi" src="https://i.ytimg.com/vi/TLU2DZqhsSs/maxresdefault.jpg" width="500" height="200" style="vertical-align: middle;">
+<img class="irc_mi2" title="A sinking world by Hieronymus Bosch" src="http://lexiconmag.com/content/bosch/descent.jpg" width="500" height="200" alt="Image result for bosch paintings hell" style="vertical-align: middle;">
+</div>
+
+
+
+<br/>
+<br/>
+
+
+<div>
+    <h1 align="center"> <em>Method </em> </h1>
+
+
+    <p style="font-size:20px; vertical-align: middle; text-align: center;">
+        The file selected was taken from: <a href="https://data.giss.nasa.gov/tmp/gistemp/STATIONS/tmp_612061860000_14_0/station.txt"> data.giss.nasa.gov: Kobenhavn.  </a> <br/>
+
+        This <strong> file </strong> contains monthly temperatures of <strong>Copenhagen (Denmark)</strong>, from the years 1880 to 2017;  <br/>
+
+        The detailed file information is the following: <br/>
+    </p>
+
+    <ul style="font-size:20px; vertical-align: middle; text-align: center;">
+        <li> 1st Column: &nbsp; &nbsp; Year.</li>
+        <li> 2nd-13th Column:&nbsp;&nbsp; Months from January to December.</li>
+        <li> 14th Column:&nbsp;&nbsp; D-J-F (Average of December, January and February) </li>
+        <li> 15th Column:&nbsp;&nbsp; M-A-M (Average of March, April and May) </li>
+        <li> 16th Column:&nbsp;&nbsp; J-J-A (Average of June, July and August)</li>
+        <li> 17th Column:&nbsp;&nbsp; S-O-N (Average of September, October and November)</li>
+        <li> 18th Column:&nbsp;&nbsp; metANN (Average of all the months)</li>
+
+    </ul>
+
+
+    <p style="font-size:20px; vertical-align: middle; text-align: center;">
+
+        When reading the file it is observed that from 2012 to 2017 there are some temperature outliers that surely <br/>
+        are errors in the data gathering (i.e.  999.9 degrees is not possible, especially in Copenhagen!). <br/>
+
+        For the visualization performed in this assignment we have used the dataset file in both a .txt file and a .csv. <br/>
+        The .csv file was obtained with the following
+        <strong> python </strong> code: <br/>
+    </p>
+
+</div>
+
+<p id="code_tsv_csv" style="background-color:navajowhite">
+    &nbsp; &nbsp; list_of_lines = []  <em># Initialises the list that will contain all the modified lines of our file  </em> <br/>
+    &nbsp; &nbsp; with open('temperaturesKobenhavn.txt', 'r') as tsv:  <em># Loads our file </em> <br/>
+    &nbsp; &nbsp; &nbsp; &nbsp;  for line in tsv: <em> # Go line by line of our file </em> <br/>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; new_line = ",".join(line.split())  <em># Splits the elements of each line by white space,and joins the elements by "," </em> <br/>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  list_of_lines.append(new_line)  <em> # Append each modified line to the list. </em> <br/>
+
+    &nbsp; &nbsp; txtfile = open("temperaturesKobenhavn.csv", 'w')  # here I save each line as a .csv file <br/>
+    &nbsp; &nbsp; for element in list_of_lines:  <br/>
+    &nbsp; &nbsp; &nbsp; &nbsp;  txtfile.write(element+"\n")  # Add each line on a new line of the .csv file  <br/>
+    &nbsp; &nbsp; txtfile.close() <br/>
+
+    &nbsp; &nbsp;<em> # An <strong> example </strong> of the first line of the file <strong> before using the python code </strong>: YEAR  &nbsp; &nbsp; &nbsp;  JAN   &nbsp; &nbsp; &nbsp; FEB  &nbsp; &nbsp; &nbsp;  MAR   &nbsp; &nbsp; &nbsp; APR   &nbsp; &nbsp; &nbsp; MAY  &nbsp; &nbsp; &nbsp;  JUN  &nbsp; &nbsp; &nbsp;  JUL  &nbsp; &nbsp; &nbsp;  AUG &nbsp; &nbsp; &nbsp;   SEP  &nbsp; &nbsp; &nbsp;  OCT  &nbsp; &nbsp; &nbsp;  NOV  &nbsp; &nbsp; &nbsp;  DEC &nbsp; &nbsp; &nbsp;  D-J-F  &nbsp; &nbsp; &nbsp; M-A-M  &nbsp; &nbsp; &nbsp; J-J-A  &nbsp; &nbsp; &nbsp; S-O-N &nbsp; &nbsp; &nbsp; metANN </em> <br/>
+
+    &nbsp; &nbsp;<em> # An <strong>example  </strong> of the first line of the file <strong>after using the python code </strong>: YEAR,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC,D-J-F,M-A-M,J-J-A,S-O-N,metANN </em> <br/>
+
+
+</p>
+
+
+<p style="font-size:20px; vertical-align: middle; text-align: center;">
+    We decided to make two plots: <br/>
+    <strong>The first one is a barplot</strong> whose x axis and y axis are the even years (1880-2011) <br/>
+    and the annual average of these years(obtained from the last column of the dataset) respectively; <br/>
+    this temperature is useful because it helps us to see the trend of the annual mean temperature over the years. <br/>
+    <strong>The second plot is a heatmap </strong>of all the values in the dataset (the x axis are the column names,  <br/>
+    and the y axis are the years from 1880 (up) to 2011 (down), this is useful because in a quick look we can <br/>
+    check if there are clusters of a certain temperature or a temperature difference in a specific year-month period. <br/>
+
+</p>
+
+
+<div id="Results">
+    <h1 align="center"> <em>Results</em> </h1>
+	<svg style="width:100%;
+				height:600px;
 				top:0px;
 				left:0px;">
-		</svg>
-		
-	
-		So far we've only taught static visualizations. Which dynamic elements or interactions could improve your article?<br>
-		A mockup is welcome. <br>
-		
+	</svg>
+
+
+
+Clear White = -7C<br>
+Dark red	= 20C<br>
+
+</div>
+
+
+<div id="Discussion">
+    <h1 align="center"> <em>Discussion</em> </h1>
+    <p style="font-size:20px; vertical-align: middle; text-align: center;">
+        IMPORTANT NOTE: When plotting the barplot we observe a peak on the left that we do not know where it comes from. <br/>
+        In the barplot we observe that from the 1990's onwards some of the temperatures reached are higher than normal. However, we do not <br/>
+        observe a clear fluctuation trend over a 10 year period. <br/>
+
+        In the heatmap we observe that monthly temperatures genaraly do not differ in the period 1880-2011. <br/>
+        Nevertheless we do see that temperatures per month seem to follow each other for about 3 consecutive years. <br/>
+    </p>
+
+</div>
+
+
+<div id="Conclusion">
+    <h1 align="center"> <em>Conclusion</em> </h1>
+    <p style="font-size:20px; vertical-align: middle; text-align: center;">
+        A two plot analysis is not enough to infer that there is climate change going on. <br/>
+        Further analysis should be performed.
+    </p>
+
+</div>
+
+
+<div id="Q1_Jesus">
+    <h1 align="center"> <em>Question 1_Jesus</em> </h1>
+    <p style="font-size:20px; vertical-align: middle; text-align: center;">
+        <em> Which data set (that is realistically possible for you to obtain) and visualization would you include to give a more confident answer to the articles main question? A mockup is welcome. </em> <br/>
+        First of all I would select datasets from strategic places around the globe (i.e. stations in different continents) <br>
+        in quadrants. In the following mockup the orange starts represent two different datasets close to each other at that location. <br>
+        For each pair of datasets I would plot a barplot showing the temperture-year evoulution, and when clicking on each bar,<br>
+        a new line graph showing the temperature evolution per month of both stations in the year selected. <br>
+        Finally I would repeat the same process but with datasets of precipitations. <br>
+        <img  style="vertical-align: middle;" border="1" height="378" src="https://1.bp.blogspot.com/-rIr584NPkeA/Wibi34yt_2I/AAAAAAAABbk/xwpHZ4iraREb9Jzw8OAlriHn09pPEwtkgCLcBGAs/s640/IMG_1337.jpg" width="640">
+    </p>
+
+</div>
+
+
+<div id="Q2_Tycho">
+    <h1 align="center"> <em>Question 2_Tycho</em> </h1>
+    <p style="font-size:20px; vertical-align: middle; text-align: center;">
+        <em> So far we've only taught static visualizations. Which dynamic elements or interactions could improve your article? A mockup is welcome.  </em>
 		I can think of one dynamic element that mainly works for the bar plot. Right now, we reduced<br>
 		the number of years that we show the avarage temperature<br>
 		of by only showing the even numbered years. This is because there were<br>
 		simply to many data points. The bar plot was still visible,<br>
 		although a little clutered. But it really cluttered the x axis labels.<br>
-		To make it more visible we only show the even years. A cool dynamic element<br>
-		would be that if you hover your mouse over a bar in the barplot,<br> 
+		A cool dynamic element would be that if you hover your mouse over a bar in the barplot,<br> 
 		the bar would jump out. The bar can also be high lighted. Then it would also show the next 2 or<br>
 		three years to the left and right of the bar.<br>
-		Including the odd numbered years. It would be a sort of zoom in effect.<br>
-		
-	
-	
+		Including the odd numbered years. It would be a sort of zoom in effect.
+
+
+    </p>
+
+</div>
+
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v4.js"></script>
-	<script src = "heatmap.js"></script>
 	<script src = "barplot.js"></script>
+	<script src = "heatmap.js"></script>
 	
-	</body>
+</body>
+
+
 </html>
+
+
+
+
+
