@@ -1,74 +1,36 @@
 <html>
+	<head>
+		
+	</head>
+		
 	<body>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://d3js.org/d3.v4.js"></script>
-		<script> 
-		var data;
-		var matrix_data = [];
+		<svg style="width:100%;
+				height:100%;
+				top:0px;
+				left:0px;">
+		</svg>
 		
-		$.get('http://localhost:8000/temperature_copenhagen.txt', function(d){
-			data = d;
-			
-			
-			
-			data = data.split(/\r?\n/);
-			data.shift();
-			
-			for(var i = 0; i < data.length; i++){
-				var line = data[i].split(/[ ]+/);
-				line.shift();
-				matrix_data.push(line);
-			}
-			
-			
-			// Flatten matrix
-			var m = matrix_data.length;
-			var n = matrix_data[0].length;
-			flat_data = [].concat.apply([], matrix_data);
-
-
-			// Largest value in data. Used to scale colors.
-			var maxval = d3.max(flat_data);
-
-			// Initialiation function. Called after body has loaded
-			var w = 1000;
-			var h = 1000;
-			var svg = d3.select('body')
-					  .append('svg')
-					  .attr('width', w)
-					  .attr('height', h);
-
-			var sqW = w/n;
-			var sqH = h/m;
-
-			// Create rects for entry and color them according to value
-			svg.selectAll('rect')
-			  .data(flat_data)  
-			  .enter()
-			  .append('rect')
-			  .attr('x',function(d,i){
-				var col = i%n;
-				var offset = 10;
-				return col*sqW+offset;
-			  })
-			  .attr('y',function(d,i){
-				var row = Math.floor(i/n);
-				var offset = 10;
-				return row*sqH+offset;
-			  })
-			  .attr('width' , w/n+1)
-			  .attr('height', h/m+1)
-			  .style('fill',function(d){
-				var I = Math.round(120*(1 - d/maxval)+150);
-				return 'rgb('+I+','+(I-100)+','+(I-100)+')'; 
-			  });
-		});
+	
+		So far we've only taught static visualizations. Which dynamic elements or interactions could improve your article?<br>
+		A mockup is welcome. <br>
 		
-		</script>
+		I can think of one dynamic element that mainly works for the bar plot. Right now, we reduced<br>
+		the number of years that we show the avarage temperature<br>
+		of by only showing the even numbered years. This is because there were<br>
+		simply to many data points. The bar plot was still visible,<br>
+		although a little clutered. But it really cluttered the x axis labels.<br>
+		To make it more visible we only show the even years. A cool dynamic element<br>
+		would be that if you hover your mouse over a bar in the barplot,<br> 
+		the bar would jump out. The bar can also be high lighted. Then it would also show the next 2 or<br>
+		three years to the left and right of the bar.<br>
+		Including the odd numbered years. It would be a sort of zoom in effect.<br>
 		
-		
-		
-		<title>D3 Page Template</title>
-		<div id="foo"></div>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://d3js.org/d3.v4.js"></script>
+	<script src = "heatmap.js"></script>
+	<script src = "barplot.js"></script>
+	
 	</body>
 </html>
