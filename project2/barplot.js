@@ -18,7 +18,7 @@ function init() {
 		var width = 1200
 		var height = 500
 		var gOne = svgOne.append("g")
-		  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		  //.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 		var x = d3.scaleBand().rangeRound([0, width]).padding(0.3)
 				.domain(data.map(function(d) { if(d.year % 2 == 0){return d.year; } }));
