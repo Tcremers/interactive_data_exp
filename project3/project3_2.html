@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+#parent {
+  fill: green;
+}
+
+.link.parent {
+  stroke: green;
+}
+
+.link.divorced {
+  stroke-dasharray: 0,2 1;
+  stroke-width: 2px;
+}
+
+.link.married {
+  stroke-width: 2px;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+
+// http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
+d3.json("trump_family2.json", function(error, graph) {
+	if (error) throw error;
+	var links = graph.links;
+
+	var nodes = {};
+
+	// Compute the distinct nodes from the links.
+	links.forEach(function(link) {
+	  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+	  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+	});
+
+	var width = 1300,
+		height = 700;
+	
+	var force = d3.layout.force()
+		.nodes(d3.values(nodes))
+		.links(links)
+		.size([width, height])
+		//	.linkDistance(100)
+		.linkDistance(function(node) {
+			console.log(node.type)
+			return node.type == "children" ? 300 : 50;
+		})
+		.charge(function(node) {
+			return node.type == "children" ? -10 : -1000;
+		})
+		.on("tick", tick)
+		.start();
+
+	var svg = d3.select("body").append("svg")
+		.attr("width", width)
+		.attr("height", height);
+
+	// Per-type markers, as they don't inherit styles.
+	svg.append("defs").selectAll("marker")
+		.data(["married", "divorced", "parent"])
+	  .enter().append("marker")
+		.attr("id", function(d) { return d; })
+		.attr("viewBox", "0 -5 10 10")
+		.attr("refX", 15)
+		.attr("refY", -1.5)
+		.attr("markerWidth", 6)
+		.attr("markerHeight", 6)
+		.attr("orient", "auto")
+	  .append("path")
+		.attr("d", "M0,-5L10,0L0,5");
+
+	var path = svg.append("g").selectAll("path")
+		.data(force.links())
+	  .enter().append("path")
+		.attr("class", function(d) { return "link " + d.type; })
+		.attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
+
+	var circle = svg.append("g").selectAll("circle")
+		.data(force.nodes())
+	  .enter().append("circle")
+		.attr("r", 10)
+		.call(force.drag);
+
+	var text = svg.append("g").selectAll("text")
+		.data(force.nodes())
+	  .enter().append("text")
+		.attr("x", 8)
+		.attr("y", ".31em")
+		.text(function(d) { return d.name; });
+
+	// Use elliptical arc path segments to doubly-encode directionality.
+	function tick() {
+	  path.attr("d", linkArc);
+	  circle.attr("transform", transform);
+	  text.attr("transform", function(d){
+		var x = d.x > width/2 ? d.x : d.x - 50;
+		//var x = d.x - width/(d.x * 10);
+		return "translate(" + x + "," + d.y + ")";
+	  });
+	}
+
+	function linkArc(d) {
+	  var dx = 0,
+		  dy = 0,
+		  dr = 200;
+	  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+	}
+
+	function transform(d) {
+	  //var x = d.x >
+	  return "translate(" + d.x + "," + d.y + ")";
+	}
+
+});
+</script>

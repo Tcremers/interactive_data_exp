@@ -1,0 +1,24 @@
+{
+  "links": [
+{"source": "Donald Trump","target": "none", "type" : "Ivana Trump"},
+{"source": "Ivana Trump","target": "none", "type" : "none"},
+{"source": "Donald Trump Jr.","target": "Donald Trump", "type" : "Ivana Trump"},
+{"source": "Vanessa Trump","target": "none", "type" : "none"},
+{"source": "Kai Madison","target": "Donald Trump Jr.", "type" : "Vanessa Trump"},
+{"source": "Donald III","target": "Donald Trump Jr.", "type" : "Vanessa Trump"},
+{"source": "Chloe Sophia","target": "Donald Trump Jr.", "type" : "Vanessa Trump"},
+{"source": "Tristan Milos","target": "Donald Trump Jr.", "type" : "Vanessa Trump"},
+{"source": "Spencer Frederick","target": "Donald Trump Jr.", "type" : "Vanessa Trump"},
+{"source": "Ivanka Trump","target": "Donald Trump", "type" : "Ivana Trump"},
+{"source": "Jared Kushner","target": "none", "type" : "none"},
+{"source": "Arabella Rose","target": "Ivanka Trump", "type" : "Jared Kushner"},
+{"source": "Joseph Frederick","target": "Ivanka Trump", "type" : "Jared Kushner"},
+{"source": "Theodore James","target": "Ivanka Trump", "type" : "Jared Kushner"},
+{"source": "Eric Trump","target": "Donald Trump", "type" : "none"},
+{"source": "Lara Yunaska","target": "none", "type" : "none"},
+{"source": "Marla Maples","target": "none", "type" : "none"},
+{"source": "Tiffany Trump","target": "Donald Trump", "type" : "Marla Maples"},
+{"source": "Melanie Trump","target": "none", "type" : "none"},
+{"source": "Baron Trump","target": "Donald Trump", "type" : "Melanie Trump"}
+]
+}
