@@ -2,43 +2,75 @@
 <meta charset="utf-8">
 <style>
 
-.link {
+#TychoPlot .link {
   fill: none;
   stroke: #666;
   stroke-width: 1.5px;
 }
 
-#parent {
+#TychoPlot #parent {
   fill: green;
 }
 
-.link.parent {
+#TychoPlot .link.parent {
   stroke: green;
 }
 
-.link.divorced {
+#TychoPlot .link.divorced {
   stroke-dasharray: 0,2 1;
   stroke-width: 2px;
 }
-
-.link.married {
+ 
+#TychoPlot .link.married {
   stroke-width: 2px;
 }
 
-circle {
+#TychoPlot circle {
   fill: #ccc;
   stroke: #333;
   stroke-width: 1.5px;
 }
 
-text {
+#TychoPlot text {
   font: 10px sans-serif;
+  font-weight: bold;
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 
 </style>
+
+
 <body>
+
+<div id="TychoPlot">
+
+<br>
+We also wanted to make a tree that included the relation of both children toward their children<br>
+and back to their respective parent. In this way you can get an overview of the whole familly.<br>
+We could not figure out a good way to make a static tree depicting this. To work around this we adopted an<br>
+interactive tree example and edited the JSON data and the script to fit our project.<br>
+It is not the clearest familly tree but we believe it gets the job done.<br> 
+
+<ul>
+<li>
+The green lines point toward children.
+</li>
+<li>
+The black lines point toward a person's partner.
+</li>
+<li>
+The black dotted lines show that these partners are divorced and no long married.
+</li>
+<li>
+You an drag the nodes the get a better overview of the relationships.
+</li>
+</ul>
+
+
+</div>
+
+
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -65,20 +97,20 @@ d3.json("trump_family2.json", function(error, graph) {
 		//	.linkDistance(100)
 		.linkDistance(function(node) {
 			console.log(node.type)
-			return node.type == "children" ? 300 : 50;
+			return node.type == "children" ? 400 : 50;
 		})
 		.charge(function(node) {
-			return node.type == "children" ? -10 : -1000;
+			return node.type == "children" ? -50 : -2000;
 		})
 		.on("tick", tick)
 		.start();
 
-	var svg = d3.select("body").append("svg")
+	var svgOne = d3.select("body").select("#TychoPlot") .append("svg")
 		.attr("width", width)
 		.attr("height", height);
 
 	// Per-type markers, as they don't inherit styles.
-	svg.append("defs").selectAll("marker")
+	svgOne.append("defs").selectAll("marker")
 		.data(["married", "divorced", "parent"])
 	  .enter().append("marker")
 		.attr("id", function(d) { return d; })
@@ -91,19 +123,19 @@ d3.json("trump_family2.json", function(error, graph) {
 	  .append("path")
 		.attr("d", "M0,-5L10,0L0,5");
 
-	var path = svg.append("g").selectAll("path")
+	var path = svgOne.append("g").selectAll("path")
 		.data(force.links())
 	  .enter().append("path")
 		.attr("class", function(d) { return "link " + d.type; })
 		.attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
 
-	var circle = svg.append("g").selectAll("circle")
+	var circle = svgOne.append("g").selectAll("circle")
 		.data(force.nodes())
 	  .enter().append("circle")
 		.attr("r", 10)
 		.call(force.drag);
 
-	var text = svg.append("g").selectAll("text")
+	var text = svgOne.append("g").selectAll("text")
 		.data(force.nodes())
 	  .enter().append("text")
 		.attr("x", 8)
@@ -124,7 +156,7 @@ d3.json("trump_family2.json", function(error, graph) {
 	function linkArc(d) {
 	  var dx = 0,
 		  dy = 0,
-		  dr = 200;
+		  dr = 200 ;
 	  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
 	}
 
