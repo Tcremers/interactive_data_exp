@@ -18,13 +18,18 @@ body {
   stroke: #000;
 }
 
+
+
 </style>
 <body>
+
+<div  id="pca"></div>
+<div  id="hand"></div>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
+    width = 560 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x1 = d3.scale.linear()
@@ -90,13 +95,13 @@ d3.text("hands_pca.csv", function(textOne) {
 	  
 	  // Add the x-axis.
 	  svgOne.append("g")
-		  .attr("class", "x axis")
+		  .attr("class", "x1 axis")
 		  .attr("transform", "translate(0," + height + ")")
 		  .call(d3.svg.axis().scale(x1).orient("bottom"));
 
 	  // Add the y-axis.
 	  svgOne.append("g")
-		  .attr("class", "y axis")
+		  .attr("class", "y1 axis")
 		  .call(d3.svg.axis().scale(y1).orient("left"));
 
 	  // Add the points!
