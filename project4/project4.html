@@ -22,7 +22,14 @@ body {
 
 </style>
 <body>
-
+Principal Component Analysis (PCA) is a way to visualize highly dimentional data on a 2d plain. In this case<br>
+we try to show the outline of a hand as a single point in a scatter plot.<br>
+When you mouse over the points in the pca plot the right graph will load the corresponding hand outline. When <br>
+you mouse over different points you'll see that points closer together correspond to hand that look more a like.<br>
+When you look around a bit you'll see that points close to 0,0 represent a normal hand outline. Going along the<br>
+Y-axis you'll see that on top, the upper most fingers will stretch away from eachother. Likewise, going down on<br>
+the y-axis you'll see that the bottem few fingers will stretch away from eachother. The x-axis defines how<br>
+much the fingers are stretches out in general.<br>
 <div  id="pca"></div>
 <div  id="hand"></div>
 <script src="//d3js.org/d3.v3.min.js"></script>
