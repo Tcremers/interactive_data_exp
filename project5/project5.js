@@ -29,9 +29,12 @@ function init() {
 		.range(['#ffffe0','#b22222']);
 	
 	var dict = {};
+	
 	var legendText = ["0", "500", "1000", "1500", "2000"];
-	var legendValues = [0,500,1000,1500,2000]
-    d3.json("sfpd_districts.geojson",
+	var legendValues = [0,500,1000,1500,2000];
+    var daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturdat", "Sunday"];
+	var maxCrimes = 0;
+	d3.json("sfpd_districts.geojson",
             function(error, data) {
 	d3.json("sf_crime.geojson",
             function(error, crime) {				
@@ -46,7 +49,18 @@ function init() {
 			else{
 				dict[crime.features[i].properties.PdDistrict] = 1;
 			};
+			if(dict[crime.features[i].properties.DayOfWeek] > 0){
+				dict[crime.features[i].properties.DayOfWeek] += 1
+			}
+			else{
+				dict[crime.features[i].properties.DayOfWeek] = 1;
+			};
+			if(dict[crime.features[i].properties.DayOfWeek] > maxCrimes){
+				maxCrimes = dict[crime.features[i].properties.DayOfWeek];
+			}
+			
 		}
+		console.log(maxCrimes);
 		console.log(dict);	
 		
 		svg.selectAll("path")	
@@ -96,6 +110,9 @@ function init() {
 			.attr("y", 9)
 			.attr("dy", ".35em")
 			.text(function(d) { return d; });
+			
+			
+		
 	
 	})
     })
